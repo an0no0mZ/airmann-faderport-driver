@@ -420,13 +420,13 @@ function FaderPort:midi_callback(message)
       if (prefs.sticky_mode_support.value) then
         if (self.shift_pressed) then -- change middle frame
           renoise.app().window.active_middle_frame =
-            renoise.ApplicationWindow.MIDDLE_FRAME_SAMPLE_EDITOR
+            renoise.ApplicationWindow.MIDDLE_FRAME_INSTRUMENT_SAMPLE_EDITOR
         else
           self:toggle_sticky_mode() -- sticky mode
         end
       else
         renoise.app().window.active_middle_frame =
-          renoise.ApplicationWindow.MIDDLE_FRAME_SAMPLE_EDITOR
+          renoise.ApplicationWindow.MIDDLE_FRAME_INSTRUMENT_SAMPLE_EDITOR
       end
 
     -- window view undo / redo

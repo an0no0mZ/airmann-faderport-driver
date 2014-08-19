@@ -375,6 +375,6 @@
   </dsp_binding_list>
   <undo_workaround>false</undo_workaround>
   <switch_off_when_app_resigned>false</switch_off_when_app_resigned>
-  <sticky_mode_support>true</sticky_mode_support>
+  <sticky_mode_support>false</sticky_mode_support>
   <auto_connect>true</auto_connect>
 </FaderPortPreferences>

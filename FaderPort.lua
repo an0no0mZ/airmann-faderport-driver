@@ -431,7 +431,7 @@ function FaderPort:update_light_states()
     self:set_light_state(0x0a,self.sticky_mode) -- trns
   else
     self:set_light_state(0x0a,middle_frame ==
-      renoise.ApplicationWindow.MIDDLE_FRAME_SAMPLE_EDITOR)
+      renoise.ApplicationWindow.MIDDLE_FRAME_INSTRUMENT_SAMPLE_EDITOR)
   end
 
   self:set_light_state(0x06, song().transport.loop_block_enabled) -- punch
@@ -666,6 +666,16 @@ function FaderPort:on_tracks_change(notification)
 
   local type = notification.type
   local index = notification.index
+  local index1 = notification.index1
+  local index2 = notification.index2
+  
+  -- pure debug code
+  --[[ print("TYPE:",type)
+  print("INDEX:",index)
+  print("INDEX1:",index1)
+  print("INDEX2:",index2)
+  print("LAST:",self.last_track_index) 
+  --]]
 
   if (type == "insert") then
     if (index <= self.last_track_index) then
@@ -676,7 +686,7 @@ function FaderPort:on_tracks_change(notification)
     local index1 = notification.index1
     local index2 = notification.index2
     if (index1 == self.last_track_index) then
-      self.last_track_index = index2
+      self.last_track_index = index2      
     elseif (index2 == self.last_track_index) then
       self.last_track_index = index1
     end
@@ -698,6 +708,9 @@ function FaderPort:on_tracks_change(notification)
       end
     end
   end
+  
+  -- pure debug code
+  -- print("LAST NEW:",self.last_track_index)
 end
 
 -- devices[] list change handler. Computes self.last_device_index in sticky mode
@@ -1864,7 +1877,7 @@ function FaderPort:on_middle_frame_change()
   end
 
   if (not prefs.sticky_mode_support.value) then
-    if (frametype == renoise.ApplicationWindow.MIDDLE_FRAME_SAMPLE_EDITOR)
+    if (frametype == renoise.ApplicationWindow.MIDDLE_FRAME_INSTRUMENT_SAMPLE_EDITOR)
     then
       self:midi_send({0xa0,0x0a,1}) -- Trns light on
     else
