@@ -280,6 +280,28 @@ function FaderPort:midi_callback(message)
         else
           self.last_track:unmute()
         end
+      else         
+        -- Since the master track can't be muted via Lua API
+        -- do the same as Renoise 3: 
+        -- if no track is muted -> mute all tracks but master
+        -- if any track is muted -> unmute all tracks 
+        local unmute = false
+        for i = 1,#renoise.song().tracks do
+          if (renoise.song().tracks[i].type ~= renoise.Track.TRACK_TYPE_MASTER) then
+            if (renoise.song().tracks[i].mute_state ~= renoise.Track.MUTE_STATE_ACTIVE) then
+              unmute = true
+            end
+          end
+        end  
+        for i = 1,#renoise.song().tracks do
+          if (renoise.song().tracks[i].type ~= renoise.Track.TRACK_TYPE_MASTER) then
+            if (unmute) then
+              renoise.song().tracks[i]:unmute()
+            else
+              renoise.song().tracks[i]:mute()
+            end
+          end
+        end                
       end
 
     -- channel solo

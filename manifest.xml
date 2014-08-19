@@ -3,7 +3,7 @@
   <ApiVersion>4.0</ApiVersion>
   <Id>de.airmann.FaderPort</Id>
   <Version>1.1</Version>
-  <Name>Airmann's FaderPort Driver RENOISE 3.0</Name>
+  <Name>Airmann's FaderPort Driver</Name>
   <Author>Matthias Ehrmann [airmann_pub@online.de]</Author>
   <Description>A Renoise driver for Presonus FaderPort DAW controller</Description>
   <Category>Midi Controllers</Category>
