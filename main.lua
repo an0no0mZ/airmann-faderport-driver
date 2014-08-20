@@ -34,9 +34,11 @@ emulator = nil
 -- preferences
 prefs = renoise.Document.create("FaderPortPreferences") {  
     
-    dump_midi = false, -- dump midi messages
+    dump_midi = false, -- dump midi messages    
 
-    emulation_mode = false, -- true: use emulator device instead of real faderport hardware  
+    emulation_mode = true, -- true: use emulator device instead of real faderport hardware  
+    emulation_alternate_button_text = true, -- true: use alternate button texts instead of original
+                                            -- button texts
   
     auto_connect = true, -- true: Renoise connects to FaderPort automatically during start up
     
@@ -45,7 +47,7 @@ prefs = renoise.Document.create("FaderPortPreferences") {
     latch_is_default_write_mode = true, -- true: default fader write mode is "latch", 
                                         -- false: default fader write mode is "write"
     
-    sticky_mode_support = true, -- sticky mode available (trns button)
+    sticky_mode_support = false, -- sticky mode available (trns button)
     
     undo_workaround = false, -- use dirty undo workaround to avoid massive creation of undo data
                              -- IMPORTANT: doesn't work WITHOUT FaderPort additional power supply !
@@ -174,13 +176,13 @@ if (driver) then
 
   -- reset
   renoise.tool():add_menu_entry {
-    name = "Main Menu:Tools:FaderPort:Reset",
+    name = "Main Menu:Tools:FaderPort:Reset / Show",
     active = function() return driver.connected end,
     invoke = function() driver:reset() end
   }
 
   renoise.tool():add_keybinding {
-    name = "Global:Tools:Reset FaderPort",    
+    name = "Global:Tools:Reset / Show FaderPort",    
     invoke = function() driver:reset() end
   }
   

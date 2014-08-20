@@ -6,9 +6,10 @@
   <latch_is_default_write_mode>true</latch_is_default_write_mode>
   <midi_out_name>FaderPort</midi_out_name>
   <midi_in_name>FaderPort</midi_in_name>
+  <sticky_mode_support>false</sticky_mode_support>
   <virtual_pan_resolution>128</virtual_pan_resolution>
-  <anti_suck_min_turns>3</anti_suck_min_turns>
   <footswitch_pressed_signal>1.0</footswitch_pressed_signal>
+  <anti_suck_min_turns>3</anti_suck_min_turns>
   <dsp_binding_list>
     <dsp_binding>Delay</dsp_binding>
     <dsp_binding>5</dsp_binding>
@@ -375,6 +376,6 @@
   </dsp_binding_list>
   <undo_workaround>false</undo_workaround>
   <switch_off_when_app_resigned>false</switch_off_when_app_resigned>
-  <sticky_mode_support>false</sticky_mode_support>
+  <emulation_alternate_button_text>true</emulation_alternate_button_text>
   <auto_connect>true</auto_connect>
 </FaderPortPreferences>

@@ -433,152 +433,188 @@ function Emulator:create_view()
             self:on_fader_value_change(intval)                      
          end         
     }          
-    
+  
+  -- associative array for button text 
+  self.btntxt = {}
+  self.btntxt["mute"] = "mute"
+  self.btntxt["solo"] = "solo"
+  self.btntxt["rec"] = "rec"
+  self.btntxt["left"] = "< left"
+  self.btntxt["bank"] = "bank"
+  self.btntxt["right"] = "right >"
+  self.btntxt["output"] = "output"
+  self.btntxt["read"] = "read"
+  self.btntxt["write"] = "write"
+  self.btntxt["touch"] = "touch"
+  self.btntxt["off"] = "off"
+  self.btntxt["mix"] = "mix"
+  self.btntxt["proj"] = "proj"
+  self.btntxt["trns"] = "trns"
+  self.btntxt["undo"] = "undo"
+  self.btntxt["shift"] = "shift"
+  self.btntxt["punch"] = "punch"
+  self.btntxt["user"] = "user"
+  self.btntxt["loop"] = "loop"
+  self.btntxt["rwd"] = "<< rwd"
+  self.btntxt["fwd"] = "fwd >>"
+  self.btntxt["stop"] = "stop"
+  self.btntxt["play"] = "play"
+  self.btntxt["record"] = "record"
+  
+  -- alternate button texts
+  if (prefs.emulation_alternate_button_text.value) then
+    self.btntxt["bank"] = "devices"
+    self.btntxt["output"] = "post"
+    self.btntxt["proj"] = "pattern"
+    self.btntxt["trns"] = "sample"
+    self.btntxt["user"] = "swap"
+  end
+  
   self.mute = vb:button {
-      width = 50,height = 25, text = "mute",
+      width = 50,height = 25, text = self.btntxt["mute"],
       pressed = function()  self:midi_send_button(0x12,1) end,      
       released = function() self:midi_send_button(0x12,0) end,
       midi_mapping = "Tools:FaderPort Emulator:mute [Trigger]"
     }   
   self.solo = vb:button {
-      width = 50, height = 25, text = "solo",
+      width = 50, height = 25, text = self.btntxt["solo"],
       pressed = function() self:midi_send({0xa0,0x11,0x01}) end,
       released = function() self:midi_send({0xa0,0x11,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:solo [Trigger]"
     }  
   self.rec = vb:button {
-      width = 50, height = 25, text = "rec",
+      width = 50, height = 25, text = self.btntxt["rec"],
       pressed = function() self:midi_send({0xa0,0x10,0x01}) end, 
       released = function() self:midi_send({0xa0,0x10,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:rec [Trigger]"
     } 
     
   self.left = vb:button { 
-      width = 50, height = 25, text = "< left",
+      width = 50, height = 25, text = self.btntxt["left"],
       pressed = function() self:midi_send({0xa0,0x13,0x01}) end,
       released = function() self:midi_send({0xa0,0x13,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:left [Trigger]"
     }    
   self.bank = vb:button {
-      width = 50, height = 25, text = "bank",
+      width = 50, height = 25, text = self.btntxt["bank"],
       pressed = function() self:midi_send({0xa0,0x14,0x01}) end,
       released = function() self:midi_send({0xa0,0x14,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:bank [Trigger]"
     }    
   self.right = vb:button {
-      width = 50, height = 25, text = "right >",
+      width = 50, height = 25, text = self.btntxt["right"],
       pressed = function() self:midi_send({0xa0,0x15,0x01}) end,
       released = function() self:midi_send({0xa0,0x15,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:right [Trigger]"
     }  
   self.output = vb:button {
-      width = 50, height = 25, text = "output",
+      width = 50, height = 25, text = self.btntxt["output"],
       pressed = function() self:midi_send({0xa0,0x16,0x01}) end,
       released = function() self:midi_send({0xa0,0x16,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:output [Trigger]"
     }  
   
   self.read = vb:button {
-      width = 50, height = 25, text = "read",
+      width = 50, height = 25, text = self.btntxt["read"],
       pressed = function() self:midi_send({0xa0,0x0a,0x01}) end,
       released = function() self:midi_send({0xa0,0x0a,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:read [Trigger]"
     }    
   self.write = vb:button {
-      width = 50, height = 25, text = "write",
+      width = 50, height = 25, text = self.btntxt["write"],
       pressed = function() self:midi_send({0xa0,0x09,0x01}) end,
       released = function() self:midi_send({0xa0,0x09,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:write [Trigger]"
     }    
   self.touch = vb:button {
-      width = 50, height = 25, text = "touch",
+      width = 50, height = 25, text = self.btntxt["touch"],
       pressed = function() self:midi_send({0xa0,0x08,0x01}) end,
       released = function() self:midi_send({0xa0,0x08,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:touch [Trigger]"
     }  
   self.off = vb:button {
-      width = 50, height = 25, text = "off",
+      width = 50, height = 25, text = self.btntxt["off"],
       pressed = function()  self:midi_send_button(0x17,1) end,      
       released = function() self:midi_send_button(0x17,0) end,
       midi_mapping = "Tools:FaderPort Emulator:off [Gate]"
     }
   
   self.mix = vb:button {
-      width = 50, height = 25, text = "mix",
+      width = 50, height = 25, text = self.btntxt["mix"],
       pressed = function() self:midi_send({0xa0,0x0b,0x01}) end,
       released = function() self:midi_send({0xa0,0x0b,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:mix [Trigger]"
     }    
   self.proj = vb:button {
-      width = 50, height = 25, text = "proj",
+      width = 50, height = 25, text = self.btntxt["proj"],
       pressed = function() self:midi_send({0xa0,0x0c,0x01}) end,
       released = function() self:midi_send({0xa0,0x0c,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:proj [Trigger]"
     }  
   self.trns = vb:button {
-      width = 50, height = 25, text = "trns",
+      width = 50, height = 25, text = self.btntxt["trns"],
       pressed = function() self:midi_send({0xa0,0x0d,0x01}) end,
       released = function() self:midi_send({0xa0,0x0d,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:trns [Trigger]"
     }  
   self.undo = vb:button {
-      width = 50, height = 25, text = "undo",
+      width = 50, height = 25, text = self.btntxt["undo"],
       pressed = function() self:midi_send({0xa0,0x0e,0x01}) end,
       released = function() self:midi_send({0xa0,0x0e,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:undo [Trigger]"
     }
   
   self.shift = vb:button {  
-      width = 50, height = 25, text = "shift",
+      width = 50, height = 25, text = self.btntxt["shift"],
       pressed = function()  self:midi_send_button(0x02,1) end,      
       released = function() self:midi_send_button(0x02,0) end,
       midi_mapping = "Tools:FaderPort Emulator:shift [Gate]"
     }
   self.punch = vb:button {
-      width = 50, height = 25, text = "punch",
+      width = 50, height = 25, text = self.btntxt["punch"],
       pressed = function() self:midi_send({0xa0,0x01,0x01}) end,
       released = function() self:midi_send({0xa0,0x01,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:punch [Trigger]"
     }
   self.user = vb:button {
-      width = 50, height = 25, text = "user",  
+      width = 50, height = 25, text = self.btntxt["user"],  
       pressed = function() self:midi_send({0xa0,0x00,0x01}) end,
       released = function() self:midi_send({0xa0,0x00,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:user [Trigger]"
     }
   self.loop = vb:button {
-      width = 50, height = 25, text = "loop",    
+      width = 50, height = 25, text = self.btntxt["loop"],    
       pressed = function() self:midi_send({0xa0,0x0f,0x01}) end,
       released = function() self:midi_send({0xa0,0x0f,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:loop [Trigger]"
     }
   
   self.rewind = vb:button {
-      width = 50, height = 25, text = "<< rwd",      
+      width = 50, height = 25, text = self.btntxt["rwd"],      
       pressed = function()  self:midi_send_button(0x03,1) end,      
       released = function() self:midi_send_button(0x03,0) end,
       midi_mapping = "Tools:FaderPort Emulator:rwd [Gate]"
     }
   self.forward = vb:button {
-      width = 50, height = 25, text = "fwd >>",
+      width = 50, height = 25, text = self.btntxt["fwd"],
       pressed = function()  self:midi_send_button(0x04,1) end,      
       released = function() self:midi_send_button(0x04,0) end,
       midi_mapping = "Tools:FaderPort Emulator:fwd [Gate]"
     }
   self.stop = vb:button {
-      width = 50, height = 25, text = "stop",
+      width = 50, height = 25, text = self.btntxt["stop"],
       pressed = function() self:midi_send({0xa0,0x05,0x01}) end,
       released = function() self:midi_send({0xa0,0x05,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:stop [Trigger]"
     }
   self.play = vb:button {
-      width = 50, height = 25, text = "play",
+      width = 50, height = 25, text = self.btntxt["play"],
       pressed = function() self:midi_send({0xa0,0x06,0x01}) end,
       released = function() self:midi_send({0xa0,0x06,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:play [Trigger]"
     }    
   self.record = vb:button {
-      width = 50, height = 25, text = "record",
+      width = 50, height = 25, text = self.btntxt["record"],
       pressed = function() self:midi_send({0xa0,0x07,0x01}) end,
       released = function() self:midi_send({0xa0,0x07,0x00}) end,
       midi_mapping = "Tools:FaderPort Emulator:record [Trigger]"
