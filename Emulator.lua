@@ -621,12 +621,35 @@ function Emulator:create_view()
     }    
     
   self.hold = vb:checkbox {
-      width = 20, height = 25, value = false
+      width = 20, height = 20, value = false
       --notifier = function() self: TODO: reset hold state ?
+  }  
+  self.hold_label = vb:text {
+      height = 20, text = "Emulate hold key (shift,rwd,fwd, off only!)"
   }
   
-  self.hold_label = vb:text {
-      height = 25, text = "Emulate hold key (shift,rwd,fwd, off only!)"
+  self.alternate_button_text = vb:checkbox {
+      width = 20, height = 20, value = prefs.emulation_alternate_button_text.value,
+      notifier = function() 
+        prefs.emulation_alternate_button_text.value = self.alternate_button_text.value 
+        prefs:save_as("config.xml")
+        if (prefs.emulation_alternate_button_text.value) then
+          self.bank.text = "devices"
+          self.output.text = "post"
+          self.proj.text = "pattern"
+          self.trns.text = "sample"
+          self.user.text = "swap"
+        else
+          self.bank.text = "bank"
+          self.output.text = "output"
+          self.proj.text = "proj"
+          self.trns.text = "trns"
+          self.user.text = "user"
+        end        
+      end
+  }
+  self.alternate_button_text_label = vb:text {
+      height = 20, text = "Alternate button text"
   }
      
   self.view =    
@@ -679,6 +702,11 @@ function Emulator:create_view()
           margin = renoise.ViewBuilder.DEFAULT_DIALOG_MARGIN,
           spacing = renoise.ViewBuilder.DEFAULT_DIALOG_SPACING,
           self.hold, self.hold_label
+        },
+        vb:row {
+          margin = renoise.ViewBuilder.DEFAULT_DIALOG_MARGIN,
+          spacing = renoise.ViewBuilder.DEFAULT_DIALOG_SPACING,
+          self.alternate_button_text, self.alternate_button_text_label
         }
       }
     }
