@@ -73,7 +73,7 @@ function FaderPort:__init()
       self,self.on_song_pre_release)
   end
        
-  -- device info dialogs 'n views
+  -- device info dialog 'n view
   local vb = renoise.ViewBuilder()
   self.device_info_dialog = nil
   local device_info_dialog_width = 250
@@ -89,9 +89,9 @@ function FaderPort:__init()
     }
   self.device_info_parameters = 
     vb:multiline_textfield {
-        text = "select a device",
-        width = device_info_dialog_width,
-        height = 300,        
+      text = "select a device",
+      width = device_info_dialog_width,
+      height = 300,        
     }
   self.device_info_view = 
     vb:column {
@@ -99,8 +99,28 @@ function FaderPort:__init()
       spacing = renoise.ViewBuilder.DEFAULT_DIALOG_SPACING,
       self.device_info_name,
       self.device_info_bindings,
-      self.device_info_parameters
-    }      
+      self.device_info_parameters     
+    }     
+    
+   -- help dialog 'n view
+   io.input("doc/help.txt")
+   local help_file = io.read("*all")
+   self.help_dialog = nil
+   local help_dialog_width = 700
+   self.help_text =
+     vb:multiline_textfield {
+      text = help_file,
+      width = help_dialog_width,
+      height = 800,
+      font = "mono"
+      
+     }
+   self.help_view =
+     vb:column {
+       margin = renoise.ViewBuilder.DEFAULT_DIALOG_MARGIN,
+       spacing = renoise.ViewBuilder.DEFAULT_DIALOG_SPACING,
+       self.help_text
+   }          
 end
 
 -- member variable initialization
@@ -112,7 +132,7 @@ function FaderPort:init_members()
   -- will be changed as soon as observable support is available
   self.last_record_dialog_is_visible = nil
   self.last_loop_block_enabled = nil
-  self.last_edit_pos_line = nil
+  self.last_edit_pos_line = nil  
 
   -- track 'n device
   self.last_track = nil -- last selected track
@@ -334,7 +354,7 @@ function FaderPort:on_song_created()
   
   if (prefs.auto_connect.value) then    
     self:connect()    
-  end  
+  end      
 end
 
 -- song pre release handler
@@ -1924,7 +1944,7 @@ end
 -- average: 10 times per second:
 -- TODO: high load and fader writes: Renoise restriction
 function FaderPort:on_idle()
-
+  
   if (self.shift_pressed) then
     TRACE("on_idle()")
   end
@@ -2302,4 +2322,23 @@ function FaderPort:update_device_info_bindings(device_name)
   
   self.device_info_bindings.text = text
 end
-    
+
+-- help dialog handler
+function FaderPort:toggle_help_dialog()
+  if (self:help_dialog_visible()) then
+    self.help_dialog:close()
+  else
+    if (self.help_view) then      
+      self.help_dialog = 
+        renoise.app():show_custom_dialog("FaderPort Help", self.help_view)  
+    end
+  end
+end
+
+-- indicates if help dialog is visible/valid
+function FaderPort:help_dialog_visible()
+
+  TRACE("help_dialog_visible()")
+
+  return self.help_dialog and self.help_dialog.visible
+end

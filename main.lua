@@ -180,7 +180,6 @@ if (driver) then
     active = function() return driver.connected end,
     invoke = function() driver:reset() end
   }
-
   renoise.tool():add_keybinding {
     name = "Global:Tools:Reset / Show FaderPort",    
     invoke = function() driver:reset() end
@@ -192,7 +191,6 @@ if (driver) then
     active = function() return not driver.connected end,
     invoke = function() driver:connect() end
   }
-
   renoise.tool():add_keybinding {
     name = "Global:Tools:Connect to FaderPort",
     invoke = function() driver:connect() end
@@ -204,7 +202,6 @@ if (driver) then
     active = function() return driver.connected end,
     invoke = function() driver:disconnect() end
   }
-
   renoise.tool():add_keybinding {
     name = "Global:Tools:Disconnect from FaderPort",
     invoke = function() driver:disconnect() end
@@ -223,33 +220,42 @@ if (driver) then
     invoke = function() driver:toggle_emulation_mode() end,
     selected = function() return prefs.emulation_mode.value end
   }
-
-  -- device info dialog  
-  renoise.tool():add_menu_entry {
-    name = "--- Main Menu:Tools:FaderPort:Show Device Infos",
-    invoke = function() driver:toggle_device_info_dialog() end,
-    selected = function() return driver:device_info_dialog_visible() end
-  }
   
-  renoise.tool():add_keybinding {
-    name = "Global:Tools:Show FaderPort Device Infos",
-    invoke = function() driver:toggle_device_info_dialog() end,
-    selected = function() return driver:device_info_dialog_visible() end
-  } 
-
   -- undo workaround  
   renoise.tool():add_menu_entry {
     name = "--- Main Menu:Tools:FaderPort:Undo Workaround",
     invoke = function() driver:toggle_undo_workaround() end,
     selected = function() return prefs.undo_workaround.value end
   }
-
   renoise.tool():add_keybinding {
     name = "Global:Tools:Toggle FaderPort Undo Workaround",
     invoke = function() driver:toggle_undo_workaround() end,
     selected = function() return prefs.undo_workaround.value end
   }  
- 
+  
+  -- device info dialog  
+  renoise.tool():add_menu_entry {
+    name = "--- Main Menu:Tools:FaderPort:Show Device Infos",
+    invoke = function() driver:toggle_device_info_dialog() end,
+    selected = function() return driver:device_info_dialog_visible() end
+  }
+  renoise.tool():add_keybinding {
+    name = "Global:Tools:Show FaderPort Device Infos",
+    invoke = function() driver:toggle_device_info_dialog() end,
+    selected = function() return driver:device_info_dialog_visible() end
+  } 
+
+  -- help
+  renoise.tool():add_menu_entry {
+    name = "Main Menu:Tools:FaderPort:Show Help",
+    invoke = function() driver:toggle_help_dialog() end,    
+    selected = function() return driver:help_dialog_visible() end
+  }
+  renoise.tool():add_keybinding {
+    name = "Global:Tools:Show FaderPort Help",
+    invoke = function() driver:toggle_help_dialog() end,
+    selected = function() return driver:help_dialog_visible() end
+  } 
 end  
 
 -- always instantiate emulator
