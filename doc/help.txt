@@ -1,4 +1,3 @@
-ï»¿_________________________________________________________________________________________________________
 
 FADERPORT TOOL MENU 
 
@@ -112,3 +111,34 @@ Shift+Write.........Write mode on/off automation data is written immediately aft
                     envelope is created. 
 Off.................Switch fader temporarily off as long as off button is pressed, no fader values are sent 
                     from FaderPort to Renoise. Doesn't switch off any fader modes !
+
+_________________________________________________________________________________________________________
+
+EMULATOR 
+
+In order to emulate pressing two keys at once via mouse click, one have to 
+enable “Emulate hold key”. This works only for shift, rwd, fwd, off.  Means: if hold key 
+emulation is enabled clicking e.g. shift with the mouse results in shift being selected. Another 
+click is needed to release shift.
+
+All buttons and controls - especially the fader can be MIDI-mapped to any 3rd party midi 
+controller. Thus, the driver's code can be used by any midi controller.
+
+for fader control mapping only absolute midi map mode is supported. Relative sources are not possible ! 
+For pan control mapping only relative midi map mode is supported. Absolute sources are not possible !
+For all buttons mapping mode “gate on/off” is recommended !
+
+If a 3rd party controller is mapped to fader via midi and absolute midi map mode is used,  automation 
+envelopes should be created using “write” mode only. “touch” mode makes only sense if a relative 
+controller is used. As a workaround one can swap pan and fader control via “user” key and use mapped 
+3rd party pan controller together with “touch” mode.
+
+_________________________________________________________________________________________________________
+
+ABOUT
+
+FaderPort Renoise driver was created by M. Ehrmann 2010-2014.
+Copyright and license: http://www.apache.org/licenses/LICENSE-2.0
+
+FaderPort is a trademark of PreSonus Audio Electronics, Inc., registered in the U.S. and other countries.
+Renoise is a trademark of the Renoise authors/company.

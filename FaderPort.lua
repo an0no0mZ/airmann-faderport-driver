@@ -107,20 +107,53 @@ function FaderPort:__init()
    local help_file = io.read("*all")
    self.help_dialog = nil
    local help_dialog_width = 700
+   self.manual_button =
+     vb:button {       
+       height = 30,
+       text = "Open PDF manual in browser",
+       released = function() renoise.app():open_url("doc/faderport_manual.pdf") end
+     }
+   self.donate_button =
+     vb:bitmap {              
+       height = 30,      
+       bitmap = "doc/donate_button.png",
+       notifier = function() renoise.app():open_url("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DBKSZKFZA7CW8") end 
+     }     
+   self.latest_release_button =
+     vb:button {       
+       height = 30,
+       text = "Latest release",
+       released = function()    renoise.app():open_url("https://code.google.com/p/airmann-faderport-driver/") end
+     }     
+   self.airmann_blog_button =
+     vb:button {       
+       height = 30,
+       text = "Airmann's Blog",
+       released = function()    renoise.app():open_url("http://www.airmann.de") end
+     }     
+   
    self.help_text =
      vb:multiline_textfield {
-      text = help_file,
-      width = help_dialog_width,
-      height = 800,
-      font = "mono"
-      
+       text = help_file,
+       width = help_dialog_width,
+       height = 800,
+       font = "mono",
+       edit_mode = false      
      }
    self.help_view =
      vb:column {
        margin = renoise.ViewBuilder.DEFAULT_DIALOG_MARGIN,
-       spacing = renoise.ViewBuilder.DEFAULT_DIALOG_SPACING,
+       spacing = renoise.ViewBuilder.DEFAULT_DIALOG_SPACING,       
+       vb:row {
+         margin = renoise.ViewBuilder.DEFAULT_DIALOG_MARGIN,
+         spacing = renoise.ViewBuilder.DEFAULT_DIALOG_SPACING,              
+         self.donate_button,
+         self.manual_button,          
+         self.latest_release_button,
+         self.airmann_blog_button
+       },
        self.help_text
-   }          
+     }          
 end
 
 -- member variable initialization
@@ -2330,7 +2363,7 @@ function FaderPort:toggle_help_dialog()
   else
     if (self.help_view) then      
       self.help_dialog = 
-        renoise.app():show_custom_dialog("FaderPort Help", self.help_view)  
+        renoise.app():show_custom_dialog("FaderPort Help & About", self.help_view)  
     end
   end
 end
