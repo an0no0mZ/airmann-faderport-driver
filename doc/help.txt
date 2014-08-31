@@ -26,8 +26,8 @@ Rewind..............Decrease position in pattern sequencer
 Shift+Forward.......Jump to song end position
 Shift+Rewind........Jump to song start position
 Record..............Edit mode on/off
-Loop pattern........Loop mode on/off
-Punch block.........Loop mode on/off
+Loop................Pattern loop mode on/off
+Punch...............Block loop mode on/off
 Shift+Punch.........Decrease block loop position
 Shift+User(Swap)....Increase block loop position
 
@@ -37,7 +37,7 @@ APPLICATION
 
 Mix.................Switch middle frame to mixer view
 Proj(Pattern).......Switch middle frame to pattern editor
-Trns (Sample).......Switch middle frame to sample editor. 
+Trns(Sample)........Switch middle frame to sample editor. 
                     Not available if sticky mode support is enabled in preferences !
 Undo................Renoise undo
 Shift+Undo..........Renoise redo
@@ -117,7 +117,7 @@ ________________________________________________________________________________
 EMULATOR 
 
 In order to emulate pressing two keys at once via mouse click, one have to 
-enable “Emulate hold key”. This works only for shift, rwd, fwd, off.  Means: if hold key 
+enable "Emulate hold key". This works only for shift, rwd, fwd, off.  Means: if hold key 
 emulation is enabled clicking e.g. shift with the mouse results in shift being selected. Another 
 click is needed to release shift.
 
@@ -126,12 +126,12 @@ controller. Thus, the driver's code can be used by any midi controller.
 
 for fader control mapping only absolute midi map mode is supported. Relative sources are not possible ! 
 For pan control mapping only relative midi map mode is supported. Absolute sources are not possible !
-For all buttons mapping mode “gate on/off” is recommended !
+For all buttons mapping mode "gate on/off" is recommended !
 
 If a 3rd party controller is mapped to fader via midi and absolute midi map mode is used,  automation 
-envelopes should be created using “write” mode only. “touch” mode makes only sense if a relative 
-controller is used. As a workaround one can swap pan and fader control via “user” key and use mapped 
-3rd party pan controller together with “touch” mode.
+envelopes should be created using "write" mode only. "touch" mode makes only sense if a relative 
+controller is used. As a workaround one can swap pan and fader control via "user(swap)" key and use mapped 
+3rd party pan controller together with "touch" mode.
 
 _________________________________________________________________________________________________________
 
@@ -139,6 +139,7 @@ ABOUT
 
 FaderPort Renoise driver was created by M. Ehrmann 2010-2014.
 Copyright and license: http://www.apache.org/licenses/LICENSE-2.0
+Contact me via Renoise forum.
 
 FaderPort is a trademark of PreSonus Audio Electronics, Inc., registered in the U.S. and other countries.
 Renoise is a trademark of the Renoise authors/company.

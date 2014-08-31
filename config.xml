@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FaderPortPreferences doc_version="0">
   <default_is_post_fx_mixer>true</default_is_post_fx_mixer>
-  <emulation_mode>true</emulation_mode>
+  <emulation_mode>false</emulation_mode>
   <dump_midi>false</dump_midi>
   <latch_is_default_write_mode>true</latch_is_default_write_mode>
   <midi_out_name>FaderPort</midi_out_name>
